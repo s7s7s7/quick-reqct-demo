@@ -1,12 +1,18 @@
 import React, { ReactNode } from 'react';
 import CalButton, { ICalButtonProps } from '../../component/CalButton/index'
+import { connect } from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import { updateContent } from '../../store/action/CalculateContent'
 
 
 const initialState = {
     stack: ['0'] as string[]
 }
 
-type IInputProps = { changeContent: (content: string) => any }
+// const mapDispatchToProps = (dispatch: Dispatch) => ({ updateContent: () => dispatch(updateContent) }) OR USE FOLLOWING LINE
+const mapDispatchToProps = (dispatch: Dispatch) => (bindActionCreators({ updateContent }, dispatch))
+
+type IInputProps = { changeContent: (content: string) => any } & ReturnType<typeof mapDispatchToProps>
 type IInputState = typeof initialState
 
 const nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '.']
@@ -20,7 +26,8 @@ class Input extends React.Component<IInputProps, IInputState>{
 
     handleEqual = () => {
         // should show the result here
-        this.setState({ stack: ['0'] }, () => this.props.changeContent(this.state.stack.join('')))
+        // this.setState({ stack: ['0'] }, () => this.props.changeContent(this.state.stack.join('')))
+        this.setState({ stack: ['0'] }, () => this.props.updateContent(this.state.stack.join('')))
     }
 
     handleBackSpace = () => {
@@ -43,7 +50,8 @@ class Input extends React.Component<IInputProps, IInputState>{
             s = s === '0' ? c : `${s}${c}`
             stack.push(s)
         }
-        this.setState({ stack: stack }, () => this.props.changeContent(this.state.stack.join('')))
+        // this.setState({ stack: stack }, () => this.props.changeContent(this.state.stack.join('')))
+        this.setState({ stack: stack }, () => this.props.updateContent(this.state.stack.join('')))
     }
 
     handleOperatorClick = (c: string) => {
@@ -56,7 +64,8 @@ class Input extends React.Component<IInputProps, IInputState>{
             }
             if (stack.length === 0) stack.push('0')
 
-            this.setState({ stack: stack }, () => this.props.changeContent(this.state.stack.join('')))
+            // this.setState({ stack: stack }, () => this.props.changeContent(this.state.stack.join('')))
+            this.setState({ stack: stack }, () => this.props.updateContent(this.state.stack.join('')))
         } else if (c === '=') {
             this.handleEqual()
         } else {
@@ -64,7 +73,8 @@ class Input extends React.Component<IInputProps, IInputState>{
                 stack[stack.length - 1] = c
             else stack.push(c)
 
-            this.setState({ stack: stack }, () => this.props.changeContent(this.state.stack.join('')))
+            // this.setState({ stack: stack }, () => this.props.changeContent(this.state.stack.join('')))
+            this.setState({ stack: stack }, () => this.props.updateContent(this.state.stack.join('')))
         }
     }
 
@@ -87,7 +97,8 @@ class Input extends React.Component<IInputProps, IInputState>{
     }
 
     componentDidMount() {
-        this.props.changeContent(this.state.stack.join(''))
+        // this.props.changeContent(this.state.stack.join(''))
+        this.props.updateContent(this.state.stack.join(''))
     }
 
     render() {
@@ -102,4 +113,4 @@ class Input extends React.Component<IInputProps, IInputState>{
     }
 }
 
-export default Input
+export default connect(null, mapDispatchToProps)(Input)
