@@ -1,0 +1,12 @@
+.calbutton {
+  width: 60px;
+  height: 95px;
+  padding: 17px 3px 17px 3px;
+  background: hotpink;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 24px;
+}

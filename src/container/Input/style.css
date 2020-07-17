@@ -1,0 +1,26 @@
+.input-pad {
+  width: 300px;
+  height: 380px;
+
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.input-pad__numbers {
+  width: 60%;
+  height: 100%;
+  background: white;
+
+  display: flex;
+  flex-wrap: wrap;
+}
+.input-pad__operators {
+  width: 40%;
+  height: 100%;
+  background: grey;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}

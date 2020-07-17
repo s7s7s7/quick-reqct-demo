@@ -1,5 +1,13 @@
 .App {
   text-align: center;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px 0 0 0;
 }
 
 .App-logo {
@@ -36,3 +44,8 @@
     transform: rotate(360deg);
   }
 }
+
+@import "./container/Calculator/style.css";
+@import "./container/Input/style.css";
+@import "./component/CalButton/style.css";
+@import "./container/Output/style.css";
